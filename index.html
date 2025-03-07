@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="style.css">
+        <title>Soobienn</title>
+    </head>
+    <body>
+        <!-- Raining Text Container -->
+        <div class="rain-container"></div>
+    
+        <div class="home">
+            <div class="homecontainer1">
+                <h1 id="hometitle">Hi Jiejie Happy Bday :></h1>
+            </div> 
+    
+            <div class="homecontainer2">
+                <p id="homebutton">Continue</p>
+            </div>
+        </div>
+    
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                const rainContainer = document.querySelector(".rain-container");
+                const characters = "LAIJIAEN";
+    
+                for (let i = 0; i < 50; i++) {
+                    const rainText = document.createElement("div");
+                    rainText.classList.add("rain-text");
+                    rainText.textContent = characters[Math.floor(Math.random() * characters.length)];
+    
+                    rainText.style.left = Math.random() * 100 + "vw";
+                    rainText.style.animationDelay = Math.random() * 3 + "s";
+    
+                    rainContainer.appendChild(rainText);
+                }
+            });
+    
+            document.addEventListener("DOMContentLoaded", function () {
+                const title = document.getElementById("hometitle");
+                const homeButton = document.getElementById("homebutton");
+                const container = homeButton.parentElement;
+    
+                const questions = [
+                    "Do you wan ur present?",
+                    "You sure?",
+                    "Really really sure ah?",
+                    "100% confirm?",
+                    "for real for real sure?",
+                    "confirm ah?",
+                    "very sure ah?"
+                ];
+    
+                let currentQuestion = 0;
+                let finalPhase = false;
+    
+                homeButton.addEventListener("click", function () {
+                    showQuestion();
+                });
+    
+                function showQuestion() {
+                    if (currentQuestion < questions.length) {
+                        title.textContent = questions[currentQuestion];
+    
+                        container.innerHTML = "";
+    
+                        const yesButton = document.createElement("button");
+                        yesButton.textContent = "Yes";
+                        yesButton.classList.add("btn");
+                        yesButton.addEventListener("click", nextQuestion);
+    
+                        const noButton = document.createElement("button");
+                        noButton.textContent = "No";
+                        noButton.classList.add("btn");
+                        noButton.addEventListener("click", nextQuestion);
+    
+                        container.appendChild(yesButton);
+                        container.appendChild(noButton);
+                    } else if (!finalPhase) {
+                        title.textContent = "actually no gift hehe";
+                        container.innerHTML = "";
+    
+                        const continueButton = document.createElement("p");
+                        continueButton.textContent = "Continue";
+                        continueButton.id = "homebutton";
+                        continueButton.classList.add("btn");
+                        continueButton.style.cursor = "pointer";
+    
+                        continueButton.addEventListener("click", function () {
+                            showFinalQuestion();
+                        });
+    
+                        container.appendChild(continueButton);
+                        finalPhase = true;
+                    }
+                }
+    
+                function showFinalQuestion() {
+                    title.textContent = "是不是很无语? :>";
+                    container.innerHTML = "";
+    
+                    const yesButton = document.createElement("button");
+                    yesButton.textContent = "Yes";
+                    yesButton.classList.add("btn");
+                    yesButton.addEventListener("click", showFinalMessage);
+    
+                    const noButton = document.createElement("button");
+                    noButton.textContent = "No";
+                    noButton.classList.add("btn");
+                    noButton.addEventListener("click", showFinalMessage);
+    
+                    container.appendChild(yesButton);
+                    container.appendChild(noButton);
+                }
+    
+                function showFinalMessage() {
+                    title.textContent = "joking baler got gift for u de";
+                    container.innerHTML = "";
+    
+                    const finalMessage = document.createElement("p");
+                    finalMessage.textContent = "continue";
+                    finalMessage.classList.add("btn");
+                    finalMessage.style.cursor = "pointer";
+    
+                    finalMessage.addEventListener("click", function () {
+                        showImage();
+                    });
+    
+                    container.appendChild(finalMessage);
+                }
+    
+                function showImage() {
+                    title.innerHTML = "give u cake hahahaha";
+                    title.style.fontSize = "40px";
+                    container.innerHTML = "";
+    
+                    const img = document.createElement("img");
+                    img.src = "img/cake.png";
+                    img.alt = "Happy Birthday!";
+                    img.style.width = "300px";
+                    img.style.borderRadius = "10px";
+                    container.appendChild(img);
+    
+                    const continueButton = document.createElement("p");
+                    continueButton.textContent = "Continue";
+                    continueButton.classList.add("btn");
+                    continueButton.style.cursor = "pointer";
+    
+                    continueButton.addEventListener("click", function () {
+                        showAnotherQuestion();
+                    });
+    
+                    container.appendChild(continueButton);
+                }
+    
+                function showAnotherQuestion() {
+                    title.textContent = "aiyoyo sad sad no present ah";
+                    container.innerHTML = "";
+    
+                    const yesButton = document.createElement("button");
+                    yesButton.textContent = "Yes";
+                    yesButton.classList.add("btn");
+                    yesButton.addEventListener("click", function () {
+                        title.textContent = "joking la for real got";
+                        showLastLastQuestion();
+                    });
+    
+                    const noButton = document.createElement("button");
+                    noButton.textContent = "No";
+                    noButton.classList.add("btn");
+                    noButton.addEventListener("click", function () {
+                        title.textContent = "ok lo dont wan present isit haha";
+                        showLastLastQuestion();
+                    });
+    
+                    container.appendChild(yesButton);
+                    container.appendChild(noButton);
+                }
+
+                function showLastLastQuestion() {
+                    title.textContent = "aiya joking la got de";
+                    container.innerHTML = "";
+    
+                    const finalMessage = document.createElement("p");
+                    finalMessage.textContent = "continue";
+                    finalMessage.classList.add("btn");
+                    finalMessage.style.cursor = "pointer";
+    
+                    finalMessage.addEventListener("click", function () {
+                        showGift();
+                    });
+    
+                    container.appendChild(finalMessage);
+                }
+
+                function showGift() {
+                    title.innerHTML = "hapy bday jiejie";
+                    container.innerHTML = "";
+    
+                    const img = document.createElement("img");
+                    img.src = "img/money.jpg";
+                    img.alt = "Happy Birthday!";
+                    img.style.width = "300px";
+                    img.style.borderRadius = "10px";
+                    container.appendChild(img);
+                }
+    
+                function nextQuestion() {
+                    currentQuestion++;
+                    showQuestion();
+                }
+            });
+        </script>
+    </body>
+</html>
